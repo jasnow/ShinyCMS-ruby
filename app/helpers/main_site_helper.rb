@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
-# Methods that might be useful in templates on the main site
+# ShinyCMS ~ https://shinycms.org
+#
+# Copyright 2009-2020 Denny de la Haye ~ https://denny.me
+#
+# ShinyCMS is free software; you can redistribute it and/or modify it under the terms of the GPL (version 2 or later)
+
+# Methods that might be useful in templates and/or controllers on the main site
 module MainSiteHelper
   include ActsAsTaggableOn::TagsHelper
 
@@ -16,12 +22,8 @@ module MainSiteHelper
     !current_user_is_admin?
   end
 
-  def insert( name )
-    InsertSet.first.elements.where( name: name ).pick( :content )
-  end
-
-  def insert_type?( name, type )
-    InsertSet.first.elements.where( name: name ).pick( :element_type ) == type
+  def consent_version( slug )
+    ConsentVersion.find_by( slug: slug )
   end
 
   def setting( name )

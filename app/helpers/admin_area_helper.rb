@@ -1,5 +1,11 @@
 # frozen_string_literal: true
 
+# ShinyCMS ~ https://shinycms.org
+#
+# Copyright 2009-2020 Denny de la Haye ~ https://denny.me
+#
+# ShinyCMS is free software; you can redistribute it and/or modify it under the terms of the GPL (version 2 or later)
+
 # Helper methods for admin area
 module AdminAreaHelper
   # Invoke Pundit
@@ -19,14 +25,16 @@ module AdminAreaHelper
 
   # Return true if the page we're on might need a WYSIWYG HTML editor
   def html_editor_needed?
-    controller_name == 'inserts' ||
-      ( action_name == 'new'  && controller_name == 'posts' ) ||
-      ( action_name == 'edit' &&
-        %w[ posts pages templates ].include?( controller_name ) )
+    ( action_name == 'new' && controller_name == 'posts' ) ||
+      ( action_name == 'edit' && %w[ posts pages templates ].include?( controller_name ) )
   end
 
   def plugins_for_admin_menu
     ::Plugin.with_template( 'admin/menu/_section.html.erb' )
+  end
+
+  def plugins_for_admin_other_menu
+    ::Plugin.with_template( 'admin/menu/_other_item.html.erb' )
   end
 
   def render_capability_category( form, category, capabilities, show )
